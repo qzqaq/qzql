@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>使用循环输出5700 ~ 5800之间的数</title>
+</head>
+
+<body>
+    <script>
+        for (var i = 5700; i < 5801; i++) {
+            document.write("docker run -dit \<br>-v $pwd/qzql" + i + "/config:/qzql" + i + "/config \<br>-v $pwd/qzql" + i + "/log:/qzql" + i + "/log \<br>-v $pwd/qzql" + i + "/db:/qzql" + i + "/db \<br>-v $pwd/qzql" + i + "/scripts:/qzql" + i + "/scripts \<br>-v $pwd/qzql" + i + "/jbot:/qzql" + i + "/jbot \<br>-p " + i + ":5700 \<br>-e ENABLE_HANGUP=true \<br>-e ENABLE_WEB_PANEL=true \<br>--name qzql" + i + " \<br>--hostname qzql" + i + " \<br>--restart always \<br>qzql" + i + ":2.12.0<br>" +
+                "<br/>");
+        }
+    </script>
+</body>
+
+</html>
