@@ -62,6 +62,3 @@ curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/shufflewzc/QLDe
     bizMsg
     lxml
 
-    bizCode
-    bizMsg
-    lxml
