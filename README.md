@@ -1,5 +1,6 @@
 一.拉取青龙面板镜像
 docker pull whyour/qinglong:latest
+
 二.创建docker容器
 docker run -dit \
 -v $pwd/ql/config:/ql/config \
@@ -14,8 +15,10 @@ docker run -dit \
 --hostname qinglong \
 --restart always \
 whyour/qinglong:latest
+
 三.JD_COOKIE
 pt_key=?;pt_pin=?;
+
 四.拉取仓库
 ql repo 把这句话替换为你找的库地址
 
