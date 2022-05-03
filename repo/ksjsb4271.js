@@ -4,10 +4,17 @@
 IP代理：http://cxgc.top/archives/xiequdaili
 脚本兼容: QuantumultX, Surge,Loon, JSBox, Node.js
 =================================Quantumultx=========================
+重写：
 [task_local]
-0 0-23/1 * * * https://raw.githubusercontent.com/leafxcy/JavaScript/main/ks.js, tag=快手, enabled=true
-
- */
+#快手
+0 0-23/2 * * * https://raw.githubusercontent.com/leafxcy/JavaScript/main/ks.js, tag=快手, enabled=true
+[rewrite_local]
+appsupport/yoda/biz/info url script-request-header https://raw.githubusercontent.com/leafxcy/JavaScript/main/ks.js
+ksapp/client/package/renew url script-request-header https://raw.githubusercontent.com/leafxcy/JavaScript/main/ks.js
+[MITM]
+hostname = api.kuaisho*.com
+hostname = open.kuaisho*.com
+*/
 const $ = new Env('快手极速版-IP代理');
 let res,
     ksjsbCookie = $.isNode() ? (process.env.ksjsbCookie ? process.env.ksjsbCookie : "") : ($.getdata('ksjsbCookie') ? $.getdata('ksjsbCookie') : "")//快手ck
