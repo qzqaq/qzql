@@ -16,6 +16,24 @@ docker run -dit \
 --restart always \
 whyour/qinglong:latest
 
+一.拉取青龙面板镜像
+docker pull whyour/qinglong:2.12.2
+
+二.创建docker容器
+docker run -dit \
+-v $pwd/ql/config:/ql/config \
+-v $pwd/ql/log:/ql/log \
+-v $pwd/ql/db:/ql/db \
+-v $pwd/ql/scripts:/ql/scripts \
+-v $pwd/ql/jbot:/ql/jbot \
+-p 5700:5700 \
+-e ENABLE_HANGUP=true \
+-e ENABLE_WEB_PANEL=true \
+--name qinglong \
+--hostname qinglong \
+--restart always \
+whyour/qinglong:2.12.2
+
 三.JD_COOKIE
 pt_key=?;pt_pin=?;
 
