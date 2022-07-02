@@ -1,0 +1,111 @@
+服务器PagerMaid-Modify人形自走bot搭建
+
+查看ip地址
+    curl --noproxy '*' -sSL https://api.myip.com/
+    curl https://api.myip.com/
+
+    #新建人形bot文件夹，并cd过去
+    mkdir pm && cd pm
+    #一键下载脚本并安装
+    wget https://gitlab.com/Xtao-Labs/pagermaid-modify/-/raw/master/utils/docker.sh -O docker.sh&& chmod +x docker.sh && bash docker.sh
+bash docker.sh
+
+删除/root/pm docker.sh 10到16行
+bash docker.sh
+1
+pm
+...
+y
++86...
+...
+y
+/root/pm
+ok
+
+修改pagermaid的config.yml文件，添加你的dl地址。
+进入docker容器
+docker exec -it pm /bin/bash
+#编辑config，添加dl
+vi config.yml或者通过docker cp把这个文件拷贝出来
+docker ps -a
+# 容器到本地
+docker cp 容器id或者容器名字:容器内路径 本地路径
+docker cp fe38ce103793:/pagermaid/workdir/config.yml /root
+
+# socks5 or http or MTProto
+proxy_addr: ""
+proxy_port: ""
+http_addr: "172.17.0.2"
+http_port: "7890"
+mtp_addr: ""
+mtp_port: ""
+mtp_secret: ""
+
+# 本地到容器
+docker cp 本地路径 容器id或者容器名字:容器内路径
+docker cp /root/config.yml fe38ce103793:/pagermaid/workdir
+
+    docker restart pm #重启容器
+    docker logs -f pm #查看日志，建议等个1分钟再看，前面都是依赖环境的安装
+
+安装插件
+
+两种方式：
+
+1、在线安装：在任意聊天窗口发送命令 -apt install 插件名，例如 -apt install dme
+
+2、本地安装：在TG的插件文件基础上回复 -apt install
+插件使用
+
+安装插件后输入 -help 插件名，即可获取使用方法。例如 -help dme
+插件推荐
+
+插件太多，没有办法一一描述，建议去插件库自己挑选安装。这里介绍几个比较实用的插件。
+dme插件：反 TG desktop 防撤回插件。
+
+安装：-apt install dme；命令示例：-d 100
+
+使用场景：在任意聊天窗口，删除自己的消息。假如你想删除某些自己的聊天记录，用它准没错！也非常适合请场子！
+
+比如，你在科技玩家群组撒野，发了一堆消息，不想被小姐姐发现，你就可以 -d 10000，假装什么都没有发生过！当然，小姐姐是不会让你们乱来的。
+shift插件：开启转发频道新消息功能
+
+安装：-apt install shift；命令示例：-shift set <监听频道/组ID> <转发频道组ID>
+
+使用场景：你非常喜欢某个频道，想实时获取频道/组信息，并转发到自己的频道/组。需要你关注频道或是组成员。
+
+频道/组id的获取方法：转发频道/组消息到自己的频道/组，在转发消息的基础上发送-id即可获取。
+
+在测试过程中发现，如果是你自己发送在频道的消息，是不会被转发的。所以，你需要用另一个账号来发消息测试。
+eat插件：生成一张吃头像图片
+
+安装命令：-apt install eat；命令示例：-eat /1；-eat .1；-eat -1；-eat ！，更多玩法见 -help eat。
+
+使用场景：在别人聊天内容上进行回复生效。适合摸鱼和朋友吹水无聊用的。内置了6种模版，下面是示例。
+autochangename插件：自动更新 last_name 为时间等。
+
+安装命令：-apt install autochangename
+
+使用场景：你的tg名称后面，就会有动态变化。下面是效果。
+bc插件：查询包含虚拟货币在内的货币价格
+
+安装命令：-apt install bc；使用方法：-bc <num> <coin1> <coin2>，例如 -bc 1 btc usdt
+
+使用场景：如果你关注币圈，这个一定是必备插件！
+
+人形bot插件非常多，这里不做过多介绍了，抓紧时间写你们关心的人形傻妞。
+人形常用命令
+
+    -apt install 插件名 #安装插件
+    #插件安装也可以一次性多个，用空格隔开。
+    -apt install dme eat autochangename bc
+    -apt disabled 插件名 #禁用插件
+    -apt remove 插件名 #卸载插件
+    -update 插件名 #更新插件
+    -alias set 旧命令 新命令 #重定向原插件命令，例如-alias set dme d，以后就只需要-d执行，而不是-dme。
+    -speedtest #测试机器速度
+    -sysinfo #查看机器信息
+    -status #查看机器运行状态
+    -restart #重启人形bot
+
+人形bot的基本使用暂时介绍到这里，更多花样使用欢迎大家自行探索。下面重点来介绍人形插件silly_girl妙用！

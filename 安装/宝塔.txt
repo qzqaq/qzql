@@ -1,0 +1,85 @@
+最近宝塔面板升级到了7.8版本，违背了宝塔开源协议，竟然在免费版的源码里面加入了加密的授权验证模块。除此之外，7.8版本使用各种方法均无法绕过面板强制绑定账号，如果不绑定账号插件就无法下载。
+
+因此这里分享一下7.7原版的安装脚本。
+
+
+安装命令：
+
+wget -O install.sh http://f.cccyun.cc/bt/install_6.0.sh && bash install.sh
+
+
+升级(降级)到7.7版本命令：
+
+curl http://f.cccyun.cc/bt/update6.sh|bash
+
+
+宝塔Windows面板降级到7.2版本命令（需先安装好官方最新版，然后在cmd执行）：
+
+wget http://f.cccyun.cc/bt/win/btpanel.py -O C:/btpanel.py && python C:/btpanel.py
+//////
+
+5.9是早期版本，不推荐安装，强烈推荐安装7.3版本，以下是linux面板7.3版本的安装脚本
+Centos安装命令：
+
+    yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh
+
+Ubuntu/Deepin安装命令：
+
+    wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && sudo bash install.sh
+
+Debian安装命令：
+
+    wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
+
+Fedora安装命令:
+
+    wget -O install.sh http://download.bt.cn/install/install_6.0.sh && bash install.sh
+
+/////
+这个是自用的宝塔面板一键优化补丁，主要有以下优化项目：
+
+1.去除宝塔面板强制绑定账号(7.9版本不支持)
+
+2.去除各种删除操作时的计算题与延时等待
+
+3.去除创建网站自动创建的垃圾文件（index.html、404.html、.htaccess）
+
+4.关闭未绑定域名提示页面，防止有人访问未绑定域名直接看出来是用的宝塔面板
+
+5.关闭活动推荐与在线客服
+
+6.去除自动校验文件与上报信息定时任务
+
+
+
+适用宝塔面板版本7.7版本的命令:
+
+    github官方源：
+
+        wget -O optimize.sh https://raw.githubusercontent.com/chenjinnian/bt_clean/master/optimize.sh && bash optimize.sh
+
+    第三方加速源：
+
+        wget -O optimize.sh https://raw.githubusercontents.com/chenjinnian/bt_clean/master/optimize.sh && bash optimize.sh
+
+    自建加速源：
+
+        wget -O optimize.sh https://github.chenjinnian.com/chenjinnian/bt_clean/master/optimize.sh && bash optimize.sh
+
+一键升（降）级到宝塔7.7版本命令：curl http://f.cccyun.cc/bt/update6.sh|bash
+
+适用宝塔面板7.9版本的命令（7.9版本不支持去除强制绑定账号，新增去除面板首页广告）：
+
+    github官方源：
+
+        wget -O optimize.sh https://raw.githubusercontent.com/chenjinnian/bt_clean/master/optimize_new.sh && bash optimize.sh
+
+    第三方加速源：
+
+        wget -O optimize.sh https://raw.githubusercontents.com/chenjinnian/bt_clean/master/optimize_new.sh && bash optimize.sh
+
+    自建加速源：
+
+        wget -O optimize.sh https://github.chenjinnian.com/chenjinnian/bt_clean/master/optimize_new.sh && bash optimize.sh
+
+LinuxPanel-7.7.0.zip

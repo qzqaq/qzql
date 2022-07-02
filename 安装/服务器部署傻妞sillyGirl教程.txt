@@ -1,0 +1,276 @@
+服务器部署傻妞sillyGirl教程 0305新增部分内容
+
+s=sillyGirl;a=arm64;if [[ $(uname -a | grep "x86_64") != "" ]];then a=amd64;fi ;if [ ! -d $s ];then mkdir $s;fi ;cd $s;wget https://github.com/cdle/${s}/releases/download/main/${s}_linux_$a -O $s && chmod 777 $s;pkill -9 $s;$(pwd)/$s
+
+成功安装后，如下图提示。请留意最后一句话“终端交互不可用，运行带-t参数即可启用”。
+
+然后按键盘“Ctrl+C”退出，再输入命令 ./sillyGirl -t 进入终端交互配置。
+
+成功安装傻妞后，会在你的安装目录下生成一个sillyGirl文件夹，
+启动傻妞，只需要先cd sillyGirl目录，
+再 ./sillyGirl 启动。
+如果想要进行终端交互，则加上 -t 参数，即 ./sillyGirl -t 。
+如果想要直接后台静默运行，则加上 -d 参数，即 ./sillyGirl -d 。
+初次安装配置傻妞，则建议开启终端交互启动，./sillyGirl -t 
+
+初始化配置文件
+
+如果你不想用命令一个个配置，可以直接新建一个sets.conf，写死配置再执行一键安装命令生效。我记得写死配置文件安装的傻妞是不能再通过set命令更改配置的，但是有玩家反馈说可以改的，我也很纳闷。这个你们自己试试吧，如果不能更改那就是配置文件的问题，自己去改配置文件然后重新安装。
+1、新增配置文件sets.conf
+
+/etc/sillyGirl目录下新建sets.conf ，输入命令touch sets.conf新建
+
+    cd /etc/sillyGirl #cd傻妞配置文件目录
+    touch sets.conf #新建配置文件
+
+2、编辑配置文件sets.conf
+
+按键盘字母i进入编辑模式，输入下面的参数，并对应配置，然后按键盘esc退出编辑模式，输入命令:wq保存并退出。
+
+都是字面意思，如果不明白，建议回九年义务改造。
+
+    # 傻妞机器人名
+    set sillyGirl name ?
+    #傻妞http服务是否开启，默认false，开启改为true
+    set sillyGirl enable_http_server true
+    # 傻妞http服务端口
+    set sillyGirl port ?
+    # 傻妞消息撤回等待时间，单位秒
+    set sillyGirl duration 5
+    # 傻妞自动升级是否通知
+    set sillyGirl update_notify true
+    # 是否开启傻妞自动更新
+    set sillyGirl auto_update false
+    # 傻妞内置赞赏码
+    set sillyGirl appreciate https://gitee.com/aiancandle/sillyGirl/raw/main/appreciate.jpg
+    #设置主qq机器人
+    set qq default_bot 主机器人账号
+    # 设置监听群聊号码，默认监听所有
+    set qq groupCode ?
+    # 设置qq临时消息默认群号
+    set qq tempMessageGroupCode ?
+    # 设置是否自动同意好友请求，这个可能失效。
+    set qq auto_friend false
+    # 是否对监听自身消息进行回复
+    set qq onself false
+    # 设置qq管理员
+    set qq masters ?
+    # 设置接受通知的qq账号，默认管理员接受
+    set qq notifier ?
+    # 设置telegram机器人token
+    set tg token ?
+    # 设置telegram机器人代理
+    set tg http_proxy ?
+    set tg url ?
+    set tg sock5 ? #例如：set tg sock5 127.0.0.1：7890
+    # 设置telegram机器人管理员
+    set tg masters ?
+    # 设置接受通知的telegram账号，默认管理员接受
+    set tg notifier ?
+    # 设置微信公众平台app_id
+    set wxmp app_id ?
+    # 设置微信公众平台app_secret
+    set wxmp app_secret ?
+    # 设置微信公众平台token
+    set wxmp token ?
+    # 设置微信公众平台encoding_aes_key
+    set wxmp encoding_aes_key ?
+    # 设置微信公众平台管理员
+    set wxmp masters ?
+    # 设置公众号关注事件回复
+    set wxmp subscribe_reply ？
+    # 设置公众号默认回复
+    set wxmp default_reply ？
+    #设置插件调用地址，确保傻妞可以访问可爱猫端口
+    set wx api_url ?
+    #设置图片转发模式，否则可能会出现此图片来自xx未经允许不得使用的提示
+    #set wx relay_mode true
+    #设置指定转发地址，格式为 https://域名/relay?url=%s，不知道不用填
+    #set wx relaier ?
+    #设置动态网络地址，适用于傻妞家庭宽带而可爱猫在云服务器的情况下
+    set wx dynamic_ip true
+    #设置可爱猫是否动态网络地址，适用于可爱猫家庭宽带而傻妞在云服务器的情况下
+    #set wx keaimao_dynamic_ip true
+    #设置可爱猫端口
+    #set wx keaimao_port ?
+    #设置微信管理员
+    set wx masters ?
+    #第二款微信框架 vlw ，采用httpapi插件，http连接方式
+    set wx vlw_addr http://ip:port
+    set wx vlw_token ?
+    # 设置短网址服务地址，填傻妞对外的可以访问的地址。
+    set dwz address ?
+    # 设置短网址服务前缀
+    set dwz prefix d
+    # 参数查看命令，目前支持sillyGirl、reply、qinglong、otto。
+    list ?
+
+注意的坑点：
+
+    记得配置的地方，删除set前面的”#“，不然不生效。
+
+傻妞部分命令
+empty ? #删除一个Bucket所有内容(已失效)
+? empty ? #删除一个Bucket中包含?的所有数据
+
+set sillyGirl adminUsername #傻妞web管理员用户名,不设置默认admin
+set sillyGirl adminPassword #傻妞web管理员密码
+set sillyGirl name 傻妞 #傻妞机器人名
+set sillyGirl enable_http_server true #启动http服务，已失效,一定会打开
+set sillyGirl port 8080 #傻妞http服务端口
+set sillyGirl download_prefix https://ghproxy.com/ #傻妞更新代理
+set sillyGirl duration 5 #傻妞消息撤回等待时间，单位秒
+set sillyGirl update_notify false #傻妞自动升级是否通知
+set sillyGirl auto_update true #是否开启傻妞自动更新
+set sillyGirl enable_http_server true #是否启动http服务，对接微信公众号等需要，建议开启
+set sillyGirl ignore_notify true # 傻妞忽略通知命令，默认忽略。
+set sillyGirl http_addr http://xxx:port #失效ck无法禁用的，检查在青龙自动生成的傻妞地址GOTIFY_URL，特定网络环境手动
+
+set qq spy_on ? # 返利间谍模式
+set sillyGirl pushplus [token] # 管理员推送绑定pushplus指令
+set sillyGirl recall 关键词1&关键词2... # 关键词撤回功能#关键词支持正则表达式。
+#set sillyGirl recall [sS]*[^0-9a-zA-Z=][0-9a-zA-Z]{14}[^0-9a-zA-Z;][sS]* # 屏蔽京东口令小妙招
+#set reply 打赏 [CQ:image,file=https://xxxxxxx] #傻妞内置赞赏码
+#set reply ? ? # 关键词回复功能 第一个问号是支持正则的关键词，第二个问号是回复的内容。支持正则捕获分组
+
+delete reply ? #删除用set的关键词回复
+
+set qq masters q1&q2&q3... #qq管理员
+set qq onGroups g1&g2&g3... #指定要监听的qq群
+set qq ban_one2one true #qq屏蔽私聊,可收到消息,不会回复
+set qq tempMessageGroupCode ? #qq临时消息默认群号
+set qq auto_friend false #是否自动同意好友请求,已失效
+set qq onself true #是否对监听自身消息,已失效
+set qq default_bot 主机器人账号 #傻妞支持对接多个qq，主qq机器人
+set qq notifier q1&q2&q3... #接受管理员通知的qq账号
+set qq ignore q1&q2&q3... #忽略消息的qq账号
+set qq spy_on q1&q2&q3... #spy群号
+
+set tg token ? #telegram机器人token
+set tg http_proxy ? #telegram机器人代理
+set tg sock5 ? #telegram机器人ss5代理
+set tg url ? #不知道干啥的
+set tg masters t1&t2&t3... #telegram机器人管理员
+set tg notifier t1&t2&t3... #接受通知的telegram账号
+
+set wxmp app_id ? #微信公众平台app_id
+set wxmp app_secret ? #微信公众平台app_secret
+set wxmp token ? #微信公众平台token
+set wxmp encoding_aes_key ? #微信公众平台encoding_aes_key
+set wxmp masters w1&w2&w3 #微信公众平台管理员
+set wxmp subscribe_reply ? #公众号关注事件回复
+set wxmp default_reply #公众号默认回复
+
+set wx masters ? #微信管理员
+set wx notifier id&id&& #接受管理员通知消息账号
+set wx onGroups onGroups g1&g2&g3... #指定要监听的群
+set wx robot_wxid XXX #微信机器人id,好像是自动生成
+set wx mode vlw #运行模式,一般能自动切换
+set wx relay_port ? #微信回调时端口,反代用
+
+set wx api_url ? #插件调用地址，确保傻妞可以访问可爱猫端口
+set wx keaimao_dynamic_ip true #可爱猫是否动态网络地址，适用于可爱猫家庭宽带而傻妞在云服务器的情况下
+set wx keaimao_port ? #可爱猫端口
+set wx relay_mode true #图片转发模式，否则可能会出现此图片来自xx未经允许不得使用的提示
+set wx relaier ? #指定转发地址，格式为 https://域名/relay?url=%s，不知道不用填
+set wx sillyGirl_dynamic_ip true #傻妞是否动态网络地址，适用于傻妞家庭宽带而可爱猫在云服务器的情况下
+
+set wx vlw_token XXX #对接vlw插件的token
+set wx vlw_addr http://vlw插件ip:端口 #插件调用地址，对应之前插件配置的
+set wx relay_mode true #图片转发模式，否则可能会出现此图片来自xx未经允许不得使用的提示。
+set wx relaier ? #指定转发地址，格式为 https://域名/relay?url=%s，不知道干嘛的。
+
+set qinglong enable_qinglong true #是否启用青龙管理
+set qinglong QLS xxx #青龙配置,自动生成
+set qinglong autoCronHideDuplicate false #关闭自动隐藏任务命令
+set qinglong host http://xxx #青龙地址
+set qinglong client_id xxx #青龙client_id
+set qinglong client_secret xxx #青龙client_secret
+set qinglong autoCronHideDuplicate false #关闭自动隐藏任务命令
+
+set qinglong pins xxx #钉子
+set qinglong chetou xxx #车头
+
+set jd_cookie enable_jd_cookie true #是否启用芝士
+set jd_cookie groupCode xxxxxxx #仅在指定群启用芝士
+set jd_cookie http_proxy http://xxx或者sock5:// #代理
+set jd_cookie asset_query_alias xxxxxxx #自定义查询口令，变相实现屏蔽查询口令。
+set jd_cookie query_wait_time [限制秒数] #限制查询频率
+set jd_cookie enable_auto_update true #自动检测ck有效性开关，关闭则为false。
+
+set jd_cookie auto_migrate */7 * * * * #定时执行迁移
+
+set jd_cookie ad ? #自定义广告，成功登录后发送
+set jd_cookie pub_login_addr ? #出现无法自动验证的验证码时使用的地址
+
+set jd_cookie adong_addr 阿东ip:端口 #阿东登录地址，已失效
+set jd_cookie selfQid 机器人qq账号 #阿东qq机器人账号，仅支持阿东1.7及以下版本，已失效
+
+set jd_cookie nolan_addr http://诺兰ip:端口 #诺兰登陆地址，需要http
+set jd_cookie login_num ? #登录坑位,已失效
+
+set jd_cookie xdd_url ? #短信登录接入xdd指令，格式http://IP地址:端口/api/login/smslogin
+set jd_cookie xdd_token ? #对接xdd，额外参数
+
+set jd_cookie enable_yad false #跳过云上阿东。已失效
+
+set jd_cookie tip xxxx #登录服务不可用时提示
+set jd_cookie login_tip xxx #发送短信前的提示
+set jd_cookie login_tip_qq xxx #你可以单独某个客户端发送短信前的提示,其他客户端将qq改成别的,如wx
+set jd_cookie phone_tip xxx #手机号获取成功后提示
+set jd_cookie phone_tip_wx xxx #你可以单独某个客户端获取后期成功提示,其他客户端将wx改成别的,如qq
+set jd_cookie sms_tip xxx #接收短信验证码提示
+set jd_cookie nolan_timeout xxx #超时提示
+
+set jd_cookie disable_notify true #关闭推送指令，不想收到请jd unbind
+set jd_cookie asset_push 0 13 * * * #定时资产推送和cookie检查
+set jd_cookie task_Notify 0 13 * * * #定时任务通知
+set jd_cookie notify_mode group/private #任务通知群聊模式
+set jd_cookie qqGroup ? #任务通知qq群聊ID
+set jd_cookie wxGroup ? #任务通知微信群聊ID
+
+set jd_cookie wsck_ua xxx #wskey转换时ua
+
+set jdWSCK update 56 * * * * #wskey自动转cooke定时
+
+四、维护扩展功能
+1、拉取扩展库
+
+举例：短网址，其他就是依葫芦画瓢。
+
+    cd /etc/sillyGirl/develop ##cd到傻妞的扩展目录develop
+    git clone https://github.com/cdle/dwz.git ##拉短网址扩展库
+
+2、自动回复机器人
+
+官方频道给了好几个实例，自己下载放到/develop/replies下面，最厉害的是群消息互通那个，简直yyds！！！
+
+    mkdir replies #在develop目录下新增文件夹replies
+    #因为我保存在备份目录，用的cp复制命令，你们自己想办法丢进去。。。
+    cp /volume1/docker/sillyGirl/develop/replies/bot.js /etc/sillyGirl/develop/replies/bot.js
+    cp /volume1/docker/sillyGirl/develop/replies/groupmsg.js /etc/sillyGirl/develop/replies/groupmsg.js #群消息同步插件
+    cp /volume1/docker/sillyGirl/develop/replies/weather.js /etc/sillyGirl/develop/replies/weather.js #天气查询插件
+
+文末都有下载。
+
+    groupmsg.js 群消息同步插件，例子中同步了QQ、微信和电报群消息。此外，可能会出现部分命令被转发的情况，需要在脚本中做跳过处理。
+
+    weather.js 查询天气和定时推送的功能，放到develop/replies目录下即可食用。
+    引用官方频道介绍，我懒得写了。
+
+这是群消息互通的图，真的好厉害，但是tg暂时没通，可能要配置代理，暂时懒得搞了。
+非常适合用户量大，多群管理的玩家们。
+
+更多傻妞插件：https://hi.kejiwanjia.com/apps/sillygirl
+五、重新一键安装
+
+    # 国内服务器用户
+    s=sillyGirl;a=arm64;if [[ $(uname -a | grep "x86_64") != "" ]];then a=amd64;fi ;if [ ! -d $s ];then mkdir $s;fi ;cd $s;wget http://github.yanyuge.workers.dev/https://github.com/cdle/${s}/releases/download/main/${s}_linux_$a -O $s && chmod 777 $s;pkill -9 $s;$(pwd)/$s
+    # 国外服务器用户
+    s=sillyGirl;a=arm64;if [[ $(uname -a | grep "x86_64") != "" ]];then a=amd64;fi ;if [ ! -d $s ];then mkdir $s;fi ;cd $s;wget https://github.com/cdle/${s}/releases/download/main/${s}_linux_$a -O $s && chmod 777 $s;pkill -9 $s;$(pwd)/$s
+
+注意：
+自愿开启芝士请对机器人执行 set jd_cookie enable_jd_cookie true，并重启。
+
+迁移傻妞只需备份/etc/sillyGirl/sillyGirl.cache，删了等于重装。 
+

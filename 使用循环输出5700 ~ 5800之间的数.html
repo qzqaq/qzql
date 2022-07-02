@@ -10,7 +10,7 @@
 <body>
     <script>
         for (var i = 5700; i < 5801; i++) {
-            document.write("<br>docker run -dit  \\<br>-v $pwd/qzql" + i + "/config:/qzql" + i + "/config  \\<br>-v $pwd/qzql" + i + "/log:/qzql" + i + "/log  \\<br>-v $pwd/qzql" + i + "/db:/qzql" + i + "/db  \\<br>-v $pwd/qzql" + i + "/scripts:/qzql" + i + "/scripts  \\<br>-v $pwd/qzql" + i + "/jbot:/qzql" + i + "/jbot  \\<br>-p " + i + ":5700  \\<br>-e ENABLE_HANGUP=true  \\<br>-e ENABLE_WEB_PANEL=true  \\<br>--name qzql" + i + "  \\<br>--hostname qzql" + i + "  \\<br>--restart always  \\<br>qz/qinglong:2.12.0<br>");
+            document.write("<br>docker run -dit  \\<br>-v $pwd/ql" + i + "/config:/ql" + i + "/config  \\<br>-v $pwd/ql" + i + "/log:/ql" + i + "/log  \\<br>-v $pwd/ql" + i + "/db:/ql" + i + "/db  \\<br>-v $pwd/ql" + i + "/scripts:/ql" + i + "/scripts  \\<br>-v $pwd/ql" + i + "/jbot:/ql" + i + "/jbot  \\<br>-p " + i + ":5700  \\<br>-e ENABLE_HANGUP=true  \\<br>-e ENABLE_WEB_PANEL=true  \\<br>--name ql" + i + "  \\<br>--hostname ql" + i + "  \\<br>--restart always  \\<br>whyour/qinglong:2.12.2<br>");
         }
     </script>
 </body>
